@@ -1,0 +1,73 @@
+{
+    "data": [{
+            "id":1,
+            "marque": "Nissan",
+            "model": [{
+                    "name": "370Z",
+                    "prix": 244272,
+                    "description": "Pays d'origine:Japon"
+
+                }, {
+                    "name": "Altima",
+                    "prix": 272772,
+                    "description": "Pays d'origine:Japon"
+
+                }, {
+                    "name": "300ZX",
+                    "prix": 272777,
+                    "description": "Pays d'origine:Japon"
+                }
+
+            ]
+
+
+        },
+        {
+            "id":2,
+            "marque": "Clio",
+            "model": [{
+                    "name": "Clio",
+                    "prix": 658797,
+                    "description": "Pays d'origine:France"
+
+                }, {
+                    "name": "Duster",
+                    "prix": 684846,
+                    "description": "Pays d'origine:France"
+
+                }, {
+                    "name": "Twingo",
+                    "prix": 658654,
+                    "description": "Pays d'origine:France"
+                }
+
+            ]
+        },
+        {
+            "id":3,
+            "marque": "Opel",
+            "model": [{
+                    "name": "Agila",
+                    "prix": 244272,
+                    "description": "Pays d'origine:Allemagne"
+
+                }, {
+                    "name": "Antara",
+                    "prix": 48687465,
+                    "description": "Pays d'origine:Allemagne"
+
+                }, {
+                    "name": "Astra",
+                    "prix": 7567879,
+                    "description": "Pays d'origine:Allemagne"
+                }
+
+            ]
+        }
+
+
+
+
+    ]
+
+}

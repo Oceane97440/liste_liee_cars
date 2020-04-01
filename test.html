@@ -1,0 +1,44 @@
+<HTML>
+    <HEAD>
+    <TITLE>2 Selects dépendants en JavaScript</TITLE>
+    <script type="text/javascript">
+    function gensel2()
+    { 
+     var s1=document.getElementById("sel1");
+     var s2=document.getElementById("sel2");
+     s2.length=0;
+     for ( var n=0; n<liste[s1.selectedIndex].length; n++ )
+     { 
+      s2.length++;
+      s2.options[s2.length-1].text=liste[s1.selectedIndex][n]; 
+     } 
+    }
+    </script>
+    </HEAD>
+    <BODY>
+    <form name="frm">
+    <select size=4
+      name="sel1"
+      id="sel1"
+      onchange="gensel2();">
+     <optgroup label="Régions">
+      <option>Bretagne</option>
+      <option>Centre</option>
+      <option>Nord-Pas-de-Calais</option>
+     </optgroup>
+    </select>
+    <select size=4
+      name="sel2"
+      id="sel2">
+     <optgroup label="Départements">
+     </optgroup>
+    </select>
+    </form>
+    <script type="text/javascript">
+    var liste=new Array(
+     new Array("Côtes-d'Armor","Finistère","Ille-et-Vilaine","Morbihan"),
+     new Array("Cher","Eure-et-Loire","Indre","Indre-et-Loire","Loir-et-Cher","Loiret"),
+     new Array("Nord","Pas-de-Calais")
+    );
+    </script>
+    </BODY></HTML>
