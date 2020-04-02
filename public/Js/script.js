@@ -38,12 +38,12 @@ function info(idmarque,idmodel) {
     $.get('/model/'+idmarque+'/'+idmodel,function(card){
        console.log(card);
        //retrancrit les donnée sous forme html affiche dans la front
-      $('#voiture-nom').html('<h6>'+'Modèle'+'</h6>'+card.nom)
-      $('#voiture-finition').html('<h6>'+'Finition'+'</h6>'+card.finition)
-      $('#voiture-prix').html('<h6>'+'Prix'+'</h6>'+card.prix+'€')
-      $('#voiture-energie').html('<h6>'+'Energie'+'</h6>'+card.energie)
-      $('#voiture-boiteDeVitesse').html('<h6>'+'Boite de vitesse'+'</h6>'+card.boiteDeVitesse)
-      $('#voiture-puissance').html('<h6>'+'Puissance'+'</h6>'+card.puissance+'km/h')
+      $('#voiture-nom').html(card.nom)
+      $('#voiture-finition').html(card.finition)
+      $('#voiture-prix').html(card.prix)
+      $('#voiture-energie').html(card.energie)
+      $('#voiture-boiteDeVitesse').html(card.boiteDeVitesse)
+      $('#voiture-puissance').html(card.puissance)
 
    })
 
@@ -52,3 +52,16 @@ function info(idmarque,idmodel) {
     
 
 });
+//http://www.carqueryapi.com/api/0.3/?cmd=getStats
+//https://www.carqueryapi.com/api/0.3/?cmd=getMakes&year=2018
+
+// $.getJSON(this+"0.3"+"?callback=?", {cmd:"getStats"}, function(data) {
+
+//     //The 'data' variable contains all response data.
+//     var makes = data.Makes;
+//     for (var i = 0; i &lt; makes.length; i++)
+//     {
+//         //You can now do what you like with the response data
+//         alert(makes[i].make_display);
+//     }
+//  });

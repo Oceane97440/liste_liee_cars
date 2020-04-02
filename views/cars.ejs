@@ -8,8 +8,9 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
+<!-- API -->
+        <script type="text/javascript" src="http://www.carqueryapi.com/js/jquery.min.js"></script>
+        <script type="text/javascript" src="http://www.carqueryapi.com/js/carquery.0.3.4.js"></script>
 
 </head>
 
@@ -26,12 +27,15 @@
                     <label>Choisir votre marque</label>
                     <select class="form-control" id="marque">
 
-                        <%for(d in data){%>
+                        <%for(d of data){%>
 
-                        <option value="<%=data[d].id%>"><%=data[d].nom%> </option>
+                            <option value="<%= d.make_id%>">
+                                <%=d.make_display%> 
+                            </option>
+    
+                            <%}%>
 
-                        <%}%>
-
+                           
                     </select>
 
                 </div>
