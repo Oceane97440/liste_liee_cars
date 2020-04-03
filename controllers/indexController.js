@@ -7,13 +7,13 @@ indexController.index = (req, res) => { // GET : /
 
     let urlmarque = `https://www.carqueryapi.com/api/0.3/?cmd=getMakes&year=2018`;
 
-    request(urlmarque, {async: true
+    request(urlmarque, {async: true},(err, data) => {
 
-    },(err, data) => {
-        console.log(url);      
+        console.log(urlmarque);      
 
+        //converti les donnée js en obj js
       makes=JSON.parse(data.body)
-        
+        //compte longeur du tableau
        console.log(makes.Makes.lenght);
     
    
@@ -30,19 +30,26 @@ indexController.index = (req, res) => { // GET : /
 
 
 indexController.modeles = (req, res) => {
+    let idmarque=req.params.idmarque
 
-    let urlmodel='https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=chrysler'
-        //console.log(req.params.idmodel)
+    let urlmodel=`https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=${idmarque}`;
+    
+        request(urlmodel, {async: true},(err, data) => {
+            console.log(urlmodel);      
+    
+            modelid=JSON.parse(data.body)
+            
+          // console.log(model.Models.lenght);
+        
+           res.send(modelid);
 
-        // fs.readFile("cars.json", (err, file) => {
-        //     if (err) throw err;
-        //     let data = JSON.parse(file);
-        //     //  console.log(data.cars[req.params.idmodel]);
-        //     //je veux l'ensemble des donnée puis dans modele [id modèle]
-        //     var modelid = data.cars[req.params.idmodel];
-        //     res.send(modelid);
-        // });
-
+            // res.render('cars',{data:model.Models});
+           console.log(modelid);
+        })
+        
+        
+        
+        
 
     },
 
