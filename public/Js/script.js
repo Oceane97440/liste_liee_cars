@@ -1,63 +1,66 @@
-$(document).ready(function(){
-    //fonction onchange
-$("#marque").on("change",function(){
-    //appel a la fonction model
-   models($(this).val())
-    
-});
-function models(idmakes) {
-    $.get(`/${idmakes}`,function(result) {
-        console.log(result);
+$(document).ready(function () {
+  
+    let selectmarque = $("#marque");
+    let selectmodel = $("#model");
 
-        //creaction d'un variable contenant mes option du select
-        var listemodel="";
-        //ajout option
-        for(d in result.modeles){
-        //     //var listemodel=<option data-marque="idmarque" value="idmodel">nom du modèle</option>
-        //listemodel+='<option data-marque="'+result.id+'"value="'+result.modeles[d].id+'">'+result.modeles[d].nom+'</option>'
-            listemodel+='<option data-marque="'+result.modeles[d].make_id+'" value="'+result.modeles[d].model_make_id+'">'+result.modeles[d].model_name+'</option>'
-
-        
-        
-        
-        
-
-            
-        }
-
-        //recup id du select et retranscit la donnée en html se qui affiche dans les option
-        $('#model').html(listemodel);
-
-        
+    selectmarque.on("change", function() {
+        $("#cardinfo").hide();
+        affichemodel($(this).val());
     })
 
-}
+    selectmodel.on("change", function() {
+        afficheunmodel($(this).find(":selected").data("brand"), $(this).val());
+    })
 
-// $("#model").on("change",function(){
-//     //appel la fonction info a chaque fois qu'un option est selectionner cela affiche la marque qui lui correspond
-//     info($(this).find(":selected").data("marque"),$(this).val())
+    function affichemodel(idmarque) {
+        $.get(`/${idmarque}/model/`, function(info) {
+            let carModels = info.makes.Models; 
+            
+            let models = `<option value="" selected disabled>Veuillez chosir un modèle</option>`;
+            
+    
+            
+            carModels.forEach((model) => {
+                models += `<option value="${model.model_name}" data-brand="${model.model_make_id}">${model.model_name}</option>`
+            });
 
-//     //(parametre)
-//     console.log($(this).find(":selected").data("marque"));
-// });
+            $("#model").html(models);
 
-// //Recup 2 parametre id du indexController.info
-// function info(idmarque,idmodel) {
-//     //route get /model/:idmarque/:idmodel
-//     $.get('/model/'+idmarque+'/'+idmodel,function(card){
-//        console.log(card);
-//        //retrancrit les donnée sous forme html affiche dans la front
-//       $('#voiture-nom').html(card.nom)
-//       $('#voiture-finition').html(card.finition)
-//       $('#voiture-prix').html(card.prix)
-//       $('#voiture-energie').html(card.energie)
-//       $('#voiture-boiteDeVitesse').html(card.boiteDeVitesse)
-//       $('#voiture-puissance').html(card.puissance)
+        })
+    }
 
-//    })
 
-// }
+    function afficheunmodel(idBrand, idModel) {
+        $.get(`/${idBrand}/${idModel}/model`, function(result) {//GET:/idmarque/idmodel/model
+
+      
+            //recup les id des li de la cart et recup les donné dans le tableau trims (info.Trism[])
+            $("#voiture-nom").html('<h6>Noms du model:</h6>'+result.info.Trims[0].model_name);
+            $("#voiture-finition").html('<h6>Marque:</h6>'+result.info.Trims[0].model_make_id);
+            $("#voiture-prix").html('<h6>Année sortie:</h6>'+result.info.Trims[0].model_year);
+            $("#voiture-energie").html('<h6>Type essence:</h6>'+result.info.Trims[0].model_engine_fuel);
+            $("#voiture-boiteDeVitesse").html('<h6>Transmission:</h6>'+result.info.Trims[0].model_transmission_type);
+            $("#voiture-puissance").html('<h6>Poxer energie:</h6>'+result.info.Trims[0].model_engine_power_rpm);
+            $("#voiture-kg").html('<h6>Nbr de kg:</h6>'+result.info.Trims[0].model_weight_kg);
+            $("#voiture-speed").html('<h6>Meilleur speed</h6>'+result.info.Trims[0].model_top_speed_kph);
+            $("#voiture-kph").html('<h6>Kph:</h6>'+result.info.Trims[0].model_0_to_100_kph);
+
+            
+            $("#cardinfo").show();
+
+        })
+    }
+
+    listCars();
+
+
+
+
+
+
+
 
     
-
-})
+    })
+    
+    

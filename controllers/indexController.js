@@ -1,75 +1,115 @@
 const indexController = {};
-//const fs = require("fs");
-const request = require('request');
+const https = require('https');
 
 
 indexController.index = (req, res) => { // GET : /
 
-    let urlmarque = `https://www.carqueryapi.com/api/0.3/?cmd=getMakes&year=2018`;
 
-    request(urlmarque, {async: true},(err, data) => {
+  https.get('https://www.carqueryapi.com/api/0.3/?cmd=getMakes&year=2019', function (result) {
 
-        console.log(urlmarque);      
 
-        //converti les donnée js en obj js
-      makes=JSON.parse(data.body)
-        //compte longeur du tableau
-       console.log(makes.Makes.lenght);
-    
-   
-        res.render('cars',{data:makes.Makes});
+    let data = '';
+
+    result.on('data', function (chunk) {
+      data += chunk;
+    })
+
+    result.on('end', () => {
+      let makes = JSON.parse(data).Makes
+
+      res.render('cars', {
+        makes: makes
+      });
+
+
+      console.log(makes);
+
+
+
+    })
+
+
+  }).on("error", (err) => {
+    console.log("Error: " + err)
+  });
+};
+
+indexController.modeles = (req, res) => {
+    let idmarque = req.params.idmarque
+
+    https.get(`https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=${idmarque}`, function (result) {//GET :/idmarque/model
+
+      console.log(idmarque);
+
+      let data = '';
+
+      result.on('data', function (chunk) {
+        data += chunk;
+      })
+
+      result.on('end', () => {
+        let makes = JSON.parse(data)
+        res.json({
+          makes: makes
+        });
         console.log(makes);
+      })
+
+
+
+
+
+
+
+
+
+    }).on("error", (err) => {
+      console.log("Error: " + err)
     })
 
 
 
 
 
-};
+  },
 
 
 
-indexController.modeles = (req, res) => {
-    let idmarque=req.params.idmarque
 
-    let urlmodel=`https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=${idmarque}`;
+
+  
+  indexController.info = (req, res) => {// GET:model/:idmarque/:idmodel
+
+    let idmarque = req.params.idmarque;
+    let idmodel = req.params.idmodel;
+
+    https.get(`https://www.carqueryapi.com/api/0.3/?cmd=getTrims&make=${idmarque}&model=${idmodel}`, function (result) {
+
+    console.log(idmarque);
+    console.log(idmodel)
+
+
+    let data = '';
     
-        request(urlmodel, {async: true},(err, data) => {
-            console.log(urlmodel);      
-    
-            modelid=JSON.parse(data.body)
-            
-          // console.log(model.Models.lenght);
-        
-           res.send(modelid);
+    result.on('data', function(chunk) {
+      data += chunk;
+    })
 
-            // res.render('cars',{data:model.Models});
-           console.log(modelid);
-        })
-        
-        
-        
-        
+    result.on('end', () => {
+      let info = JSON.parse(data)
+      res.send({ info });
 
-    },
+      console.log(info);
 
 
 
 
-
-    /// GET:model/:idmarque/:idmodel
-    // indexController.info = (req, res) => {
-    //     fs.readFile("cars.json", (err, file) => {
-    //         if (err) throw err;
-    //         //recup l'ensemble des donnée du json
-    //         let data = JSON.parse(file);
-    //         //recup l'ensemble des donnée (cars) puis dans le tableau [je veux id marque] les modèle puis dans le tableau[je veux idmodèle]
-    //         var info = data.cars[req.params.idmarque].modeles[req.params.idmodel];
+    })
 
 
-    //         res.send(info);
-    //     });
-    // };
+  }).on("error", (err) => {
+      console.log("Error: " + err)
+    })
 
-
+  }
 module.exports = indexController;

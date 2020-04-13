@@ -16,7 +16,7 @@
 
 <body>
     <div class="container">
-        <h1>2 liste deroulant voiture/marque</h1>
+        <h1>2 liste deroulant voiture/marque avec API carquery</h1>
         <div class="row">
             <div class="col-sm-4">
 
@@ -27,46 +27,44 @@
                     <label>Choisir votre marque</label>
                     <select class="form-control" id="marque">
 
-                        <%for(d of data){%>
-
-                            <option value="<%= d.make_id%>">
-                                <%=d.make_display%> 
-                            </option>
-    
-                            <%}%>
-
+                    
+                            <% for (const d in makes) { %>
+                                <option value="<%= makes[d].make_id %>" ><%= makes[d].make_display %></option>
+                            <% } %>
                            
                     </select>
+          
 
                 </div>
 
             <!-- 2 select avec un id=model -->
-        
-    
-        <div class="container d-flex flex-column align-items-center justify-content-center">
-            <label>Choisir votre modèle</label>
-            <select class="form-control" id="model">
 
+
+        <div class="container d-flex flex-column align-items-center justify-content-center" style="display: none;">
+            <label>Choisir votre modèle</label>
+            <select  class="form-control" name="select_model" id="model">
                 <option></option>
 
-           
-  
             </select>
         </div>
     </div>
 
             <!-- Card -->
 
-            <div class="card text-white bg-info mb-3" style="margin-top: 10px;"id="cardinfo" >
+            <div class="card text-white bg-info col-md-4" style="margin-top: 10px;"id="cardinfo" >
                 <div id="voiture-nom"class="card-header">
                    
                   </div>
                 <ul class="list-group list-group-flush">
                   <li id="voiture-finition" class="list-group-item text-dark"></li>
-                  <li id="voiture-prix" class="list-group-item text-danger"></li>
+                  <li id="voiture-prix" class="list-group-item text-dark"></li>
                   <li id="voiture-energie" class="list-group-item text-dark"></li>
                   <li id="voiture-boiteDeVitesse" class="list-group-item text-dark"></li>
                   <li id="voiture-puissance" class="list-group-item text-dark"></li>
+                  <li id="voiture-kg" class="list-group-item text-dark"></li>
+                  <li id="voiture-speed" class="list-group-item text-dark"></li>
+                  <li id="voiture-kph" class="list-group-item text-danger"></li>
+
 
 
                 </ul>
@@ -74,7 +72,6 @@
   
           
         
-          
 
 
    
